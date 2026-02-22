@@ -27,9 +27,9 @@ html {
 
 
 /* Hero section */
-.hero-section {
+.heim {
   position: relative;
-  background: url('../images/Hero_background.jpg') center center/cover no-repeat;
+  background: url('../images/EGrid2.jpg') center center/cover no-repeat;
   color: white;
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@ html {
 }
 
 @media screen and (max-width: 768px) {
-  .hero-section {
+  .heim {
     background-position: top center; /* cover / contain for other images */
     height: 100vh; /* 90 */
     background-size: cover; /* 280% */
