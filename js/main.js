@@ -1,36 +1,60 @@
+// ==============================================
+// VALMYND — Hamborgarahnappur (farsímar)
+// Bætir .virk við #valmynd þegar smellt er á hnappinn
+// ==============================================
 
-  window.addEventListener('scroll', function () {
-    const header = document.getElementById('main-header');
-    if (window.scrollY > 50) {
-      header.classList.add('shrink');
-    } else {
-      header.classList.remove('shrink');
-    }
-  });
+const valmyndHnappur = document.getElementById('valmynd-hnappur');
+const valmynd = document.getElementById('valmynd');
 
-  const form = document.getElementById("contact-form");
-  const response = document.getElementById("form-response");
+valmyndHnappur.addEventListener('click', () => {
+  // .virk klasi er skilgreindur í CSS til að sýna/fela valmyndina
+  valmynd.classList.toggle('virk');
+});
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
 
-    const formData = new FormData(form);
+// ==============================================
+// HAUS — Minnkast við flettingu
+// Bætir .minnkad við #haus þegar scrollað er niður um 50px
+// ==============================================
 
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString()
-    })
+const haus = document.getElementById('haus');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    haus.classList.add('minnkad');
+  } else {
+    haus.classList.remove('minnkad');
+  }
+});
+
+
+// ==============================================
+// SAMBANDSFORM — Netlify sending
+// Sendir formið með fetch() og sýnir þakkarboð á eftir.
+// Netlify tekur við gögnum á slóðinni "/" (sama lén).
+// ==============================================
+
+const sambandsform = document.getElementById('sambandsform');
+const formStadfesting = document.getElementById('form-stadfesting');
+
+sambandsform.addEventListener('submit', (event) => {
+  // Kemur í veg fyrir hefðbundna síðuhleðslu við sendingu
+  event.preventDefault();
+
+  const gogn = new FormData(sambandsform);
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(gogn).toString()
+  })
     .then(() => {
-      form.style.display = "none";
-      response.style.display = "block";
+      // Felur formið og sýnir þakkarboð
+      sambandsform.style.display = 'none';
+      formStadfesting.style.display = 'block';
     })
-    .catch((error) => alert("Villa kom upp: " + error));
-  });
-
-  const menuToggle = document.getElementById('menu-toggle');
-  const navbar = document.getElementById('navbar');
-
-  menuToggle.addEventListener('click', () => {
-    navbar.classList.toggle('active');
-  });
+    .catch((villa) => {
+      // Sýnir villuskilaboð ef sending mistekst
+      alert('Villa kom upp: ' + villa);
+    });
+});

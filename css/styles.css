@@ -1,167 +1,77 @@
-/* Reset / basic layout */
-* {
+/* ==============================================
+   GRUNNSTILLINGAR
+   Núllstilling og grunnstæðar reglur fyrir alla þætti
+   =============================================== */
+
+/* box-sizing: border-box þýðir að padding og border
+   teljast INNI Í breidd/hæð — auðveldar útlit */
+*, *::before, *::after {
   box-sizing: border-box;
-}
-
-body {
-  overflow-x: hidden;
-}
-
-body, html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* mjúk fletting þegar smellt er á tengla */
+}
+
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  overflow-x: hidden; /* kemur í veg fyrir lárétta flettistiku */
+  color: #222;
+  background-color: #fff;
+  line-height: 1.6;
 }
 
 
-/* Container */
-.container {
+/* ==============================================
+   UMGJÖRÐ (CONTAINER)
+   Miðjar og takmarkar breidd efnis á stórum skjám
+   =============================================== */
+.umgjord {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 
-/* Hero section */
-.heim {
-  position: relative;
-  background: url('../images/EGrid2.jpg') center center/cover no-repeat;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100vh; 
-  color: white;
-  padding: 0 1rem;
-  position: relative;
-}
-
-.hero-content {
-  width: 100%;
-  padding: 0 2rem;
-  text-align: center;
-}
-
-.main-title {
-  white-space: nowrap;
-  overflow: visible;  /* show full text */
-  font-size: clamp(2.2rem, 8vw, 10rem);
-  font-weight: 1000;
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-  margin-bottom: 1rem;
-  margin-top: 10rem;
-}
-
-
-.subtitle {
-  font-size: clamp(1.6rem, 2vw + 1rem, 5rem); /* scale for mobile */
-  font-weight: 300;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  margin-bottom: 4rem;
-}
-
-/* Hnappur á forsíðu banner */
-.hero-button {
-  display: inline-block;
-  padding: 1.5rem 3rem;
-  background-color: #007BFF; /* Or your brand color */
-  color: white;
-  text-decoration: none;
-  font-size: 1.8rem;
-  font-weight: 600;
-  border-radius: 10px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 3rem;
-}
-
-.hero-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
-@media screen and (max-width: 768px) {
-  .heim {
-    background-position: top center; /* cover / contain for other images */
-    height: 100vh; /* 90 */
-    background-size: cover; /* 280% */
-  }
-
-  .hero-content {
-    padding: 0 1rem;
-    text-align: center;
-  }
-
-  .main-title {
-    /* Adjust the value as needed */
-    margin-top: 1.5rem;
-  }
-
-  .subtitle {
-    /* Adjust the value as needed */
-  }
-
-  .hero-button {
-    font-size: 1.5rem;
-    padding: 1rem 1.5rem;
-
-  }
-}
-
-
-
-header {
+/* ==============================================
+   HAUS OG VALMYND
+   Fastur haus efst — verður gegnsærari við flettingu
+   =============================================== */
+#haus {
+  position: fixed;     /* stendur kyrr þegar scrollað er */
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;       /* tryggir að haus sé yfir öðru efni */
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
   transition: all 0.3s ease;
 }
 
-/* Shrunk header on scroll */
-header.shrink {
+/* Minnkað útlit þegar notandi hefur scrollað niður */
+#haus.minnkad {
   padding: 0.25rem 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
 }
 
-
-
-#main-header {
-  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
-  color: white; /* make text white for contrast */
-  padding: 10px 20px; /* optional: add some padding */
-  position: fixed; /* optional: keep header on top */
-  width: 100%;
-  z-index: 1000; /* keep it above other elements */
-}
-
-
-.nav-container {
+/* Innri uppröðun hauss: merki til vinstri, valmynd til hægri */
+.valmynd-umgjord {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem; /* Keep horizontal padding reasonable */
+  padding: 0 1rem;
 }
 
+/* Logo fyrirtækisins — mynd í tengil */
 .logo {
   font-size: 1.5em;
-  margin: 0;
   color: white;
+  text-decoration: none;
   transition: font-size 0.3s ease;
-}
-
-header.shrink .logo {
-  font-size: 1.2em;
 }
 
 .logo img {
@@ -169,20 +79,19 @@ header.shrink .logo {
   transition: height 0.3s ease;
 }
 
-header.shrink .logo img {
-  height: 35px;
-}
+/* Logo minnkar þegar hauss er minnkaður */
+#haus.minnkad .logo { font-size: 1.2em; }
+#haus.minnkad .logo img { height: 35px; }
 
-.nav-list {
+/* Listi valmyndarinnar — láréttur á stórum skjám */
+.valmynd-listi {
   list-style: none;
   display: flex;
-  margin: 0;
-  padding: 0;
+  gap: 1.2rem;
   flex-wrap: wrap;
-  gap: 1.2rem; /* gap: 25px;*/
 }
 
-.nav-list li a {
+.valmynd-listi li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -190,49 +99,53 @@ header.shrink .logo img {
   transition: color 0.3s ease;
 }
 
-.nav-list li a:hover {
-  color: #ffcc00;
+.valmynd-listi li a:hover {
+  color: #ffcc00; /* gult lit við hover */
 }
 
-/* Hide menu toggle button by default */
-.menu-toggle {
-  color: white; /* Makes the ☰ icon white */
+/* Hamborgarahnappur — falinn á stórum skjám, sýnilegur á farsíma */
+.valmynd-hnappur {
+  display: none;
+  color: white;
   font-size: 2rem;
   background: none;
   border: none;
   cursor: pointer;
-  display:none;
+  margin-left: auto;
 }
 
 
-/* Mobile styles */
+/* ==============================================
+   FARSÍMA VALMYND
+   Valmyndin fellur niður á minni skjám
+   =============================================== */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
+  .valmynd-hnappur {
+    display: block; /* sýna hamborgarahnapp */
   }
 
-  #navbar {
+  #valmynd {
     width: 100%;
-    display: none; /* hidden by default */
+    display: none; /* falin sjálfgefið á farsíma */
   }
 
-  #navbar.active {
+  /* .virk bætist við með JavaScript þegar smellt er á hnappinn */
+  #valmynd.virk {
     display: block;
   }
 
-  .nav-list {
-    flex-direction: column;
+  .valmynd-listi {
+    flex-direction: column; /* lóðrétt uppröðun */
     gap: 0;
   }
 
-  .nav-list li {
+  .valmynd-listi li {
     width: 100%;
     border-top: 1px solid #ddd;
     padding: 0.5rem 0;
   }
 
-  .nav-list li a {
+  .valmynd-listi li a {
     display: block;
     width: 100%;
     padding: 0.5rem;
@@ -240,36 +153,152 @@ header.shrink .logo img {
 }
 
 
+/* ==============================================
+   FORSÍÐA (HERO)
+   Fullskjásbakgrunnsmynd með texta í miðju
+   =============================================== */
+.forsida {
+  position: relative;
+  background: url('../images/EGrid2.jpg') center center / cover no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
 
+/* Dökkt yfirlag yfir bakgrunnsmyndina til að texti lesist betur */
+.forsida::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
 
+/* Miðjar forsíðutextann lóðrétt og lárétt */
+.forsida-innihald {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1; /* yfir dökkum yfirlaginu */
+}
 
-
-
-/* About */
-.about-intro {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin: 0 auto 3rem auto; /* topp, hægri, bottom, vinstri */
-  max-width: 800px;
+.forsida-texti {
+  width: 100%;
+  padding: 0 2rem;
   text-align: center;
 }
 
-.about-heading {
-  text-align: center;
-  font-size: clamp(1rem, 2vw + 1rem, 2.8rem); /* scale for mobile */
-  margin-bottom: 2rem;
+/* Aðalfyrirsögn forsíðunnar — stækkar með clamp() eftir skjástærð */
+.forsida-fyrirsogn {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.2rem, 8vw, 10rem);
+  font-weight: 900;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  margin-top: 10rem;
+  white-space: nowrap;
 }
 
-.about-h2{
-  font-size: clamp(1.0rem, 2vw + 1rem, 2.0rem); /* scale for mobile */
+/* Undirtitill forsíðunnar */
+.forsida-undirtitill {
+  font-size: clamp(1.4rem, 2vw + 1rem, 4rem);
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  margin-bottom: 4rem;
+  letter-spacing: 0.05em;
 }
 
-.about {
-  padding: 60px 20px;
+/* Verkbeiðni-hnappur á forsíðu */
+.forsida-hnappur {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 2rem;
+  letter-spacing: 0.04em;
+}
+
+.forsida-hnappur:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .forsida-fyrirsogn {
+    margin-top: 1.5rem;
+  }
+
+  .forsida-hnappur {
+    font-size: 1.3rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+
+/* ==============================================
+   UM OKKUR
+   Kynning á fyrirtækinu, gildum og þjónustu
+   =============================================== */
+.um-okkur {
+  padding: 80px 20px;
   background-color: #f9f9f9;
 }
 
-.about-row {
+/* Aðalfyrirsögn hlutans */
+.um-okkur-fyrirsogn {
+  font-family: 'Playfair Display', Georgia, serif;
+  text-align: center;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2.8rem);
+  margin-bottom: 2rem;
+  color: #1a1a2e;
+}
+
+/* Kynningarmynd — breið mynd í miðju efst í hlutanum */
+.kynningarmynd {
+  text-align: center;
+  margin: 1.5rem 0 2rem;
+}
+
+.kynningarmynd img {
+  width: 80%;
+  max-width: 80%;
+  height: auto;
+  max-height: 320px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 480px) {
+  .kynningarmynd img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Inngangstexti — miðjaður dálkur í miðju */
+.um-okkur-inngangur {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin: 0 auto 3.5rem auto;
+  max-width: 760px;
+  text-align: center;
+  color: #444;
+}
+
+/* Gildi-lína: mynd hlið við hlið texta */
+.gildi-lina {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -278,426 +307,468 @@ header.shrink .logo img {
   flex-wrap: wrap;
 }
 
-.about-image {
-  flex: 1;
-  min-width: 280px;
-}
-
-.about-image img  {
-  width: 100%; /* breytta í auto ef við viljum portrait myndir */
-  max-width: 100%;
-  height: 300px;               /* Uniform height var 300px fyrst */
-  object-fit: cover;          /* Crops excess and maintains aspect */
-  border-radius: 10px; 
-}
-
-.handshake-image {
-  text-align: center;
-  margin: 1.5rem 0;
-}
-
-.handshake-image img {
-  width: 80%;
-  max-width: 80%;
-  height: auto;
-  max-height: 300px; /* 👈 Limits how tall the image can get */
-  border-radius: 0.5rem;
-  object-fit: cover; /* Ensures it crops gracefully if needed */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-@media (max-width: 480px) {
-  .handshake-image img {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-
-.about-text {
-  flex: 1;
-  min-width: 280px;
-}
-
-.reverse {
+/* .ofort snýr við röð myndar og texta */
+.ofort {
   flex-direction: row-reverse;
 }
 
-
-/* custom bullet */
-.services {
-  padding: 60px 20px;
-  background-color: #fff;
+/* Mynd í gildi-línu */
+.gildi-mynd {
+  flex: 1;
+  min-width: 280px;
 }
 
-#services-h2{
-  text-align: left;
-  font-size: clamp(1.2rem, 2vw + 1rem, 2.4rem); /* scale for mobile */
-  margin-top: 5rem;
-  margin-bottom: 1.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.2em; /* lætur titill passa við bullets */
+.gildi-mynd img {
+  width: 100%;
+  height: auto;        /* respects the image's natural proportions */
+  max-height: 400px;   /* optional cap so it doesn't get too tall */
+  object-fit: cover;  /* klippir mynd til að fylla svæðið jafnt */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
-.services-list {
-  list-style: none;
-  padding-left: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto 1.5rem auto;
-  position: relative;
+/* Texti í gildi-línu */
+.gildi-texti {
+  flex: 1;
+  min-width: 280px;
 }
 
-.services-list li {
-  position: relative;
-  padding-left: 1.2em;
-  margin-bottom: 0.75em;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  font-size: clamp(0.8rem, 2vw + 1rem, 1.2rem); /* scale for mobile */
+.gildi-texti h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.2rem, 2vw + 0.5rem, 2rem);
+  margin-bottom: 0.75rem;
+  color: #1a1a2e;
 }
 
-.services-list li::before {
-  content: "●";
-  position: absolute;
-  left: 0;
-  color: #007BFF;
-  font-size: 1.2em;
-  line-height: 1;
+.gildi-texti p {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.7;
 }
 
-.services-note {
-  font-size: clamp(1rem, 2vw + 0.5rem, 1.2rem);
-  font-weight: 600;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.mobile-break {
-  display: none;
-}
-
-/* === Responsive adjustments === */
-@media screen and (max-width: 768px) {
-  .about-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .reverse {
-    flex-direction: column;
-  }
-
-  .about-text {
-    padding: 10px 0;
-  }
-
-    .mobile-break {
-    display: inline;
-  }
-
-  .services-note {
-    text-align: center;
-  }
-}
-
-
-/* === Prices section === */
-
-.pricing {
-  padding: 60px 20px;
-  background: #f9f9f9;
-  text-align: center;
-}
-
-.pricing h2 {
-  font-size: 2.6em;
-  margin-bottom: 40px;
-}
-
-.price-table {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.price-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background: white;
-  padding: 25px 30px; /* Increased padding */
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  font-size: 1.4rem;
-}
-
-.price-item .label {
-  font-weight: 500;
-  color: #333;
-  max-width: 75%;
-  line-height: 1.4;
-  word-break: break-word;
-  text-align: left;
-}
-
-.price-item .value {
-  font-weight: bold;
-  color: #004080;
-  white-space: normal;
-  margin-left: 10px;
-  /*max-width: 150px;
-  word-break: break-word; */
-}
-
-
-@media screen and (max-width: 600px) {
-  .pricing {
-    padding: 40px 20px; /* Reduced padding */
-    background: #f9f9f9;
-    text-align: center;
-  }
-
-  .pricing h2 {
-    font-size: 2em;
-    margin-bottom: 30px; /* Slightly reduced */
-  }
-
-  .price-table {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Reduced space between price items */
-  }
-
-  .price-item {
-    display: flex;
-    flex-direction: column; /* Stack label and price */
-    align-items: center;     /* Center everything */
-    background: white;
-    padding: 12px 16px;      /* Less padding */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    font-size: 0.95rem;
-  }
-
-  .price-item .label {
-    font-weight: 500;
-    color: #333;
-    text-align: center;
-    line-height: 1.4;
-    margin-bottom: 6px; /* Small spacing between label and price */
-  }
-
-  .price-item .value {
-    font-weight: bold;
-    color: #004080;
-    white-space: nowrap; /* Keep price in one line */
-  }
-}
-
-
-
-
-/* conntact form */
-/* Flex row for address + postcode */
-.form-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* Nafn fyrirtækis á milli INVA og undirtitils — létt og lúxus */
+.forsida-fyrirtaeki {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 1rem;
+  margin-top: -0.5rem;
 }
 
-/* Each field takes equal space */
-.form-row .form-group {
-  flex: 1 1 200px;
-}
 
-/* Ensure inputs still full-width inside their flex item */
-.form-row .form-group input {
-  width: 100%;
-  box-sizing: border-box;
-}
+/* ==============================================
+   ÞJÓNUSTAN OKKAR — 2x3 grid með SVG táknum
+   Svipað og myndin — tákn efst, fyrirsögn, texti
+   =============================================== */
 
-#contact .container > h2 {
+/* Fyrirsögn yfir grid */
+.tjonusta-fyrirsogn {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2.4rem);
+  margin-top: 4rem;
+  margin-bottom: 2.5rem;
   text-align: center;
-  margin-bottom: 2rem; /* adjust space below title */
-  font-size: 2.2em;
+  color: #1a1a2e;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
-  margin: 0 auto;
+/* 2x3 grid — 3 dálkar á desktop, 2 á tablet, 1 á farsíma */
+.tjonusta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto 3rem auto;
 }
 
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
+@media (max-width: 768px) {
+  .tjonusta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+@media (max-width: 480px) {
+  .tjonusta-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-button[type="submit"] {
-  background-color: #004080;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* Form layout (optional for better spacing) */
-form#contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-  margin: 2rem auto;
-}
-
-/* Red asterisk for required fields */
-.required {
-  color: red;
-  margin-left: 0.25rem;
-  font-weight: bold;
-}
-
-/* Larger textarea for Skilaboð */
-textarea#message {
-  height: 150px;
-  resize: vertical;
-}
-
-/* Apply box-sizing to everything */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Shared style for inputs, textarea, and button */
-form#contact-form input,
-form#contact-form textarea,
-form#contact-form button {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Specific styles for textarea */
-form#contact-form textarea {
-  height: 150px;
-  resize: vertical;
-}
-
-/* Specific styles for button */
-form#contact-form button {
-  background-color: #0077cc;
-  color: white;
-  border: none; /* Already styled above */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-form#contact-form button:hover {
-  background-color: #005fa3;
-}
-
-/* Ensure all form labels have consistent weight */
-#contact-form label {
-  font-weight: 500;
-}
-
-
-
-
-/* Base footer styling */
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
-}
-
-/* Center copy text */
-.footer-copy {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-top: 1.5rem;
-}
-
-/* Container flex */
-.footer-flex {
+/* Eitt þjónustukort — miðjaður texti með tákni efst */
+.tjonusta-kort {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Three‑column layout */
-.footer-cols {
-  display: flex;
+.tjonusta-kort:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* SVG tákn — föst stærð, miðjað */
+.tjonusta-takn {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1.2rem;
+}
+
+.tjonusta-takn svg {
   width: 100%;
-  max-width: 1200px;  /* or whatever you prefer */
+  height: 100%;
+}
+
+/* Fyrirsögn hvers korts */
+.tjonusta-kort-fyrirsogn {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.6rem;
+}
+
+/* Lýsingatexti hvers korts */
+.tjonusta-kort-texti {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.65;
+}
+
+/* Lokasetning neðan við listann */
+.tjonusta-lokaord {
+  font-size: clamp(1rem, 2vw + 0.3rem, 1.2rem);
+  font-weight: 700;
+  max-width: 600px;
   margin: 0 auto;
+  line-height: 1.6;
+  color: #333;
 }
 
-/* Each column takes equal space */
-.footer-left,
-.footer-center,
-.footer-right {
-  flex: 1;
+/* Línubil fyrir farsíma — falið á stórum skjám */
+.farsima-bil {
+  display: none;
 }
 
-/* Alignment per column */
-.footer-left  { text-align: left; }
-.footer-center { text-align: center; }
-.footer-right { text-align: right; }
-
-/* Logo stays its natural size */
-.footer-center .footer-logo {
-  max-height: 60px;
-  margin: 0 auto;
-}
-
-
-/* Links style */
-.footer-right a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dotted currentColor;
-}
-
-.footer-right a:hover {
-  border-bottom-style: solid;
-}
-
-/* Responsive: stack under each other on narrow screens */
-@media (max-width: 600px) {
-  .footer-cols {
+/* Svaraðar breytingar á farsíma */
+@media screen and (max-width: 768px) {
+  .gildi-lina {
     flex-direction: column;
     text-align: center;
   }
 
-  .footer-left,
-  .footer-right {
+  .ofort {
+    flex-direction: column; /* eyðir öfugri röð á farsíma */
+  }
+
+  .gildi-texti {
+    padding: 10px 0;
+  }
+
+  .farsima-bil {
+    display: inline; /* sýnir línubil á farsíma */
+  }
+
+  .tjonusta-lokaord {
     text-align: center;
   }
 }
 
 
+/* ==============================================
+   SAMBANDSFORM (HAFA SAMBAND)
+   Form til að hafa samband — Netlify meðhöndlar
+   =============================================== */
+.samband {
+  padding: 80px 20px;
+  background-color: #f9f9f9;
+}
+
+.samband h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: #1a1a2e;
+}
+
+/* Formið sjálft — dálkur í miðju */
+#sambandsform {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 580px;
+  margin: 2rem auto;
+}
+
+/* Merki (label) á hverju reit */
+#sambandsform label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Allir innsláttar- og textareitir */
+#sambandsform input,
+#sambandsform textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+/* Auðkenning þegar reitur er valinn */
+#sambandsform input:focus,
+#sambandsform textarea:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* Textareitur getur stækkað lóðrétt en ekki minnkað */
+#sambandsform textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+/* Rautt stjörna tákn við nauðsynlega reiti */
+.nauðsynlegt {
+  color: #e00;
+  margin-left: 0.2rem;
+  font-weight: 700;
+}
+
+/* Senda-hnappur */
+#sambandsform button[type="submit"] {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  letter-spacing: 0.03em;
+}
+
+#sambandsform button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* Þakkarboðið sem kemur í stað forms eftir sendingu */
+.form-stadfesting {
+  display: none; /* JavaScript sýnir þetta eftir sendingu */
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 1.5rem;
+  background: #e6f4ea;
+  border-radius: 8px;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 1.1rem;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ==============================================
+   TEYMIÐ
+   4 kort í grid — mynd efst, nafn, titill, lýsing
+   =============================================== */
+.teymid {
+  padding: 80px 20px;
+  background-color: #fff;
+}
+
+/* Fyrirsögn og inngangstexti miðjaðir */
+.teymid-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  text-align: center;
+  font-size: clamp(1.4rem, 2vw + 1rem, 2.8rem);
+  color: #1a1a2e;
+  margin-bottom: 0.75rem;
+}
+
+.teymid-intro {
+  text-align: center;
+  color: #666;
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+}
+
+/* Grid: 4 dálkar á desktop, 2x2 á tablet, 1 á mobile */
+.teymid-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .teymid-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .teymid-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Eitt meðlimskort */
+.team-card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Umgjörð myndarinnar — föst hæð, myndin fyllir hana */
+.team-card-img-wrap {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.team-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* klippir mynd til að fylla svæðið jafnt */
+  object-position: top;  /* sýnir efri hluta — hentar fyrir andlitsmyndir */
+  transition: transform 0.3s ease;
+}
+
+/* Mynd stækkar lítið eitt við hover */
+.team-card:hover .team-card-img {
+  transform: scale(1.04);
+}
+
+/* Textasvæði neðan við myndina */
+.team-card-info {
+  padding: 1.2rem 1.4rem 1.5rem;
+  flex: 1; /* tryggir að öll kort eru jafn há */
+}
+
+.team-card-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  color: #1a1a2e;
+  margin-bottom: 0.2rem;
+}
+
+/* Starfsheiti — lítið, feitletrað og blátt */
+.team-card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #007BFF;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.6rem;
+}
+
+.team-card-desc {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+
+/* ==============================================
+   FÓTUR
+   Þrír dálkar: starfsfólk | logo | kt & netfang
+   =============================================== */
+#fotur {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+  padding: 30px 0;
+}
+
+/* Þrír dálkar í einum flex-röð */
+.fotur-dalkar {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 1rem auto;
+  align-items: center;
+}
+
+/* Hver dálkur tekur jafnt pláss */
+.fotur-vinstri,
+.fotur-midja,
+.fotur-haegri {
+  flex: 1;
+}
+
+.fotur-vinstri  { text-align: left; }
+.fotur-midja    { text-align: center; }
+.fotur-haegri   { text-align: right; }
+
+/* Letur í fæti */
+#fotur p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+/* Logo í miðjudálki */
+.fotur-logo {
+  max-height: 60px;
+  margin: 0 auto;
+  display: block;
+  opacity: 0.9;
+}
+
+/* Tengill á netfang */
+.fotur-haegri a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-bottom-style 0.2s;
+}
+
+.fotur-haegri a:hover {
+  border-bottom-style: solid;
+}
+
+/* Höfundarréttur neðst — miðjaður */
+.fotur-hofundarrettur {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 1.2rem;
+}
+
+/* Farsímar: dálkar staflast og miðjast */
+@media (max-width: 600px) {
+  .fotur-dalkar {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .fotur-vinstri,
+  .fotur-haegri {
+    text-align: center;
+  }
+}
