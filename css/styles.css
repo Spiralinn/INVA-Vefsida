@@ -449,6 +449,13 @@ body {
   margin: 0 auto;
   line-height: 1.6;
   color: #333;
+  text-align: center; /* This centers the spans within the container */
+}
+
+.lokalina{
+  display: block;      /* Forces the span to take up the full width, creating a line break */
+  white-space: nowrap; /* Prevents the text inside from wrapping if the screen is too narrow */
+  
 }
 
 /* Línubil fyrir farsíma — falið á stórum skjám */
